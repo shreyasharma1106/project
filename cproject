@@ -1,0 +1,137 @@
+#include <stdio.h>
+
+#define MAX_CUSTOMERS 20
+
+// Function to get valid input for product quantity
+int valid_quantity(char *product_name) {
+    int quantity;
+    do {
+        printf("%s: ", product_name);
+        scanf("%d", &quantity);
+        if (quantity < 0) {
+            printf("Invalid input. Quantity cannot be negative. Please try again.\n");
+        }
+    } while (quantity < 0);
+    return quantity;
+}
+
+int main() {
+    int num_customers;
+
+    // Customer Detail
+    char names[MAX_CUSTOMERS][50];
+    int phone_numbers[MAX_CUSTOMERS];
+    int customer_ids[MAX_CUSTOMERS];
+
+    // Cosmetics
+    int body_soap[MAX_CUSTOMERS], shampoo[MAX_CUSTOMERS], conditioner[MAX_CUSTOMERS];
+    int hair_cream[MAX_CUSTOMERS], hair_spray[MAX_CUSTOMERS], body_cream[MAX_CUSTOMERS];
+
+    // Groceries
+    int sugar[MAX_CUSTOMERS], tea[MAX_CUSTOMERS], coffee[MAX_CUSTOMERS];
+    int rice[MAX_CUSTOMERS], wheat[MAX_CUSTOMERS];
+
+    // Beverages
+    int pepsi[MAX_CUSTOMERS], sprite[MAX_CUSTOMERS], coke[MAX_CUSTOMERS];
+    int mojitos[MAX_CUSTOMERS], thumbs_up[MAX_CUSTOMERS];
+
+    // Total
+    int cosmetics_total[MAX_CUSTOMERS], grocery_total[MAX_CUSTOMERS], beverages_total[MAX_CUSTOMERS];
+    int total_amount[MAX_CUSTOMERS];
+
+    printf("Enter the number of customers (up to %d): ", MAX_CUSTOMERS);
+    scanf("%d", &num_customers);
+
+    if (num_customers > MAX_CUSTOMERS) {
+        printf("Maximum customer limit exceeded.\n");
+        return 1;
+    }
+
+    for (int i = 0; i < num_customers; i++) {
+        printf("\n--- Customer #%d Details ---\n", i + 1);
+
+        // Input details
+        printf("Customer Name: ");
+        scanf("%s", names[i]);
+        printf("Customer Phone Number: ");
+        scanf("%d", &phone_numbers[i]);
+        printf("Customer ID: ");
+        scanf("%d", &customer_ids[i]);
+
+        // Input cosmetics
+        printf("\nCOSMETICS:\n");
+        body_soap[i] = valid_quantity("Body Soap (Rs 10)");
+        shampoo[i] =valid_quantity("Shampoo (Rs 10)");
+        conditioner[i] =valid_quantity("Conditioner (Rs 25)");
+        hair_cream[i] = valid_quantity("Hair Repair Cream (Rs 15)");
+        hair_spray[i] = valid_quantity("Hair Spray (Rs 15)");
+        body_cream[i] = valid_quantity("Body Cream (Rs 30)");
+
+        // Input groceries
+        printf("\nGROCERIES:\n");
+        sugar[i] = valid_quantity("Sugar (Rs 100)");
+        tea[i] =valid_quantity("Tea (Rs 30)");
+        coffee[i] = valid_quantity("Coffee (Rs 35)");
+        rice[i] = valid_quantity("Rice (Rs 150)");
+        wheat[i] = valid_quantity("Wheat (Rs 160)");
+
+        // Input beverages
+        printf("\nBEVERAGES:\n");
+        pepsi[i] = valid_quantity("Pepsi (Rs 30)");
+        sprite[i] = valid_quantity("Sprite (Rs 35)");
+        coke[i] = valid_quantity("Coke (Rs 30)");
+        mojitos[i] = valid_quantity("Mojitos (Rs 25)");
+        thumbs_up[i] = valid_quantity("Thumbs Up (Rs 30)");
+
+        // calc total
+        cosmetics_total[i] = 10 * body_soap[i] + 10 * shampoo[i] + 25 * conditioner[i] +
+                             15 * hair_cream[i] + 15 * hair_spray[i] + 30 * body_cream[i];
+                             
+        grocery_total[i] = 100 * sugar[i] + 30 * tea[i] + 35 * coffee[i] +
+                           150 * rice[i] + 160 * wheat[i];
+                           
+        beverages_total[i] = 30 * pepsi[i] + 35 * sprite[i] + 30 * coke[i] +
+                             25 * mojitos[i] + 30 * thumbs_up[i];
+                             
+        total_amount[i] = cosmetics_total[i] + grocery_total[i] + beverages_total[i];
+    }
+
+    // Bill
+    for (int i = 0; i < num_customers; i++) {
+        printf("\n\nDIGITAL SUPERMARKET\n");
+        printf("Customer Name: %s\n", names[i]);
+        printf("Customer Phone Number: %d\n", phone_numbers[i]);
+        printf("Customer ID: %d\n\n", customer_ids[i]);
+
+        printf("Product Name                            Quantity     Price\n");
+        printf("------------------------------------------------------------\n");
+
+        printf("Body Soap                               %d           %d RS\n", body_soap[i], 10 * body_soap[i]);
+        printf("Shampoo                                 %d           %d RS\n", shampoo[i], 10 * shampoo[i]);
+        printf("Conditioner                             %d           %d RS\n", conditioner[i], 25 * conditioner[i]);
+        printf("Hair Repair Cream                       %d           %d RS\n", hair_cream[i], 15 * hair_cream[i]);
+        printf("Hair Spray                              %d           %d RS\n", hair_spray[i], 15 * hair_spray[i]);
+        printf("Body Cream                              %d           %d RS\n", body_cream[i], 30 * body_cream[i]);
+
+        printf("Sugar                                   %d           %d RS\n", sugar[i], 100 * sugar[i]);
+        printf("Tea                                     %d           %d RS\n", tea[i], 30 * tea[i]);
+        printf("Coffee                                  %d           %d RS\n", coffee[i], 35 * coffee[i]);
+        printf("Rice                                    %d           %d RS\n", rice[i], 150 * rice[i]);
+        printf("Wheat                                   %d           %d RS\n", wheat[i], 160 * wheat[i]);
+
+        printf("Pepsi                                   %d           %d RS\n", pepsi[i], 30 * pepsi[i]);
+        printf("Sprite                                  %d           %d RS\n", sprite[i], 35 * sprite[i]);
+        printf("Coke                                    %d           %d RS\n", coke[i], 30 * coke[i]);
+        printf("Mojitos                                 %d           %d RS\n", mojitos[i], 25 * mojitos[i]);
+        printf("Thumbs Up                               %d           %d RS\n", thumbs_up[i], 30 * thumbs_up[i]);
+
+        printf("------------------------------------------------------------\n");
+
+        printf("Grocery Total Price: %d RS\n", grocery_total[i]);
+        printf("Cosmetics Total Price: %d RS\n", cosmetics_total[i]);
+        printf("Beverage Total Price: %d RS\n", beverages_total[i]);
+        printf("Total Price: %d RS\n", total_amount[i]);
+    }
+
+    return 0;
+}
